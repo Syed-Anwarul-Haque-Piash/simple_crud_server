@@ -42,12 +42,19 @@ async function run() {
         res.send(result);
     })
 
+    app.get('/buyers/:id',async (req,res)=>{
+      const id=req.params.id;
+      const query={_id: new ObjectId(id)};
+      const result=await buyerCollection.findOne(query);
+      res.send(result);
+    })
+
     app.delete('/buyers/:id',async(req,res)=>{
       const id=req.params.id;
       console.log('deleted id',id);
       const query= {_id: new ObjectId(id)};
       const result= await buyerCollection.deleteOne(query);
-      res.send(result)
+      res.send(result);
     })
 
 
