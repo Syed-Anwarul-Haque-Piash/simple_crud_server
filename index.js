@@ -49,6 +49,22 @@ async function run() {
       res.send(result);
     })
 
+    app.put('/buyers/:id',async (req,res)=>{
+      const id=req.params.id;
+      const buyer=req.body;
+      console.log(id,buyer);
+      const filter={_id: new ObjectId(id)};
+      const options={upsert:true};
+      const updatedUser={
+        $set:{
+          name:buyer.name,
+          email:buyer.email
+        }
+      }
+      const result=buyerCollection.updateOne(filter,updatedUser,options);
+      res.send(result);
+    })
+
     app.delete('/buyers/:id',async(req,res)=>{
       const id=req.params.id;
       console.log('deleted id',id);
